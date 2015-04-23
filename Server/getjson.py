@@ -5,13 +5,19 @@ import json
 def _get_apikey():
     return open('./api.key').read()
 
-def forecast(location):
-    # build up url
+# construct a request URL
+def _get_url(type, location):
+    # build up URL
     url = 'http://api.wunderground.com/api/'
-    url += _get_apikey() + '/forecast/q/' + location + '.json'
+    url += _get_apikey() + '/' + type + '/q/' + location + '.json'
+    return url
+
+def api_request(type, location):
+    # get URL
+    url = _get_url(type, location)
     # send http request
     forecast_req = request.urlopen(url)
     # read response
-    forecast_res = forecast_req.read()
+    forecast_res = forecast_req.read().decode()
     # return parsed json
-    return json.loads(forecast_res.decode())
+    return json.loads(forecast_res)
