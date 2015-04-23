@@ -190,6 +190,3 @@ ModelManifest.xml
 
 # Credent BS
 *.cef
-
-# ignore private API key file
-*.key
